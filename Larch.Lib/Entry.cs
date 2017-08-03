@@ -9,7 +9,7 @@ namespace Larch.Lib
     {
         public Larch Logger { get; set; }
 
-        public Dictionary<string, object> Data { get; set; }
+        public Fields Data { get; set; }
 
         public DateTime Timestamp { get; set; }
 
@@ -17,13 +17,11 @@ namespace Larch.Lib
 
         public Level Level { get; set; }
 
-        private byte[] buffer;
-
-        public Entry(Larch logger) : this(logger, new Dictionary<string, object>())
+        public Entry(Larch logger) : this(logger, new Fields())
         {
         }
 
-        public Entry(Larch logger, Dictionary<string, object> data)
+        public Entry(Larch logger, Fields data)
         {
             Logger = logger;
             Data = data;
@@ -49,7 +47,7 @@ namespace Larch.Lib
             // TODO: try catches
             // TODO: thread safety
             var formatted = Logger.Formatter.Format(this);
-            Logger.Out.Write(Logger.Encoding.GetBytes(formatted));
+            Logger.WriteToOutput(formatted);
 
 
         }
@@ -79,13 +77,13 @@ namespace Larch.Lib
 
         public Entry WithField(string key, object value)
         {
-            var newData = new Dictionary<string, object>(Data) { { key, value } };
+            var newData = new Fields(Data) { { key, value } };
             return new Entry(Logger, newData);
         }
 
         public Entry WithFields(Dictionary<string, object> fields)
         {
-            var newData = new Dictionary<string, object>(fields.Count + Data.Count);
+            var newData = new Fields(fields.Count + Data.Count);
             foreach (var keyvalpair in fields.Concat(Data))
             {
                 newData.Add(keyvalpair.Key, keyvalpair.Value);

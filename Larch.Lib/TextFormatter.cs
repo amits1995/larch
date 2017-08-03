@@ -8,7 +8,7 @@ namespace Larch.Lib
 {
     public class TextFormatter : IFormatter
     {
-        private static string defautDatetimeFormat = "o"; // ISO 8601
+        private const string DefautDatetimeFormat = "o"; // ISO 8601
         public bool DisableSorting { get; set; }
         public bool QuoteEmptyStrings { get; set; }
         public bool DisableTimestamp { get; set; }
@@ -29,9 +29,9 @@ namespace Larch.Lib
 
             if (!DisableTimestamp)
             {
-                AppendKeyValue(sBuilder, "time", entry.Timestamp.ToString(string.IsNullOrEmpty(TimestampFormat) ? defautDatetimeFormat : TimestampFormat));
+                AppendKeyValue(sBuilder, "time", entry.Timestamp.ToString(string.IsNullOrEmpty(TimestampFormat) ? DefautDatetimeFormat : TimestampFormat));
             }
-            AppendKeyValue(sBuilder, "level", entry.Level);
+            AppendKeyValue(sBuilder, "level", entry.Level.ToStr());
             if (!string.IsNullOrEmpty(entry.Message))
             {
                 AppendKeyValue(sBuilder, "msg", entry.Message);
@@ -46,6 +46,10 @@ namespace Larch.Lib
 
         private void AppendKeyValue(StringBuilder sBuilder, string key, object value)
         {
+            if (sBuilder.Length > 0)
+            {
+                sBuilder.Append(" ");
+            }
             sBuilder.Append($"{key}=");
             AppendValue(sBuilder, value);
         }

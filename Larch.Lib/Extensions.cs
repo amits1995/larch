@@ -5,6 +5,21 @@ using System.Text;
 
 namespace Larch.Lib
 {
+    public class Fields : Dictionary<string, object>
+    {
+        public Fields()
+        {
+        }
+
+        public Fields(Fields fields) : base(fields)
+        {
+            
+        }
+
+        public Fields(int capacity) : base(capacity)
+        {
+        }
+    }
     public static class Extensions
     {
         public static string ToFormattedString(this object[] objects)
@@ -12,9 +27,14 @@ namespace Larch.Lib
             var stringBuilder = new StringBuilder();
             foreach (var obj in objects)
             {
-                stringBuilder.Append(obj);
+                stringBuilder.Append(obj.ToString());
             }
             return stringBuilder.ToString();
+        }
+
+        public static string ToStr(this Level level)
+        {
+            return LogLevelToString(level);
         }
 
         public static string LogLevelToString(Level level)
