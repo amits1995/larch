@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <Authors>amits1995</Authors>
+    <Company>amits1995</Company>
+    <Product>Larch</Product>
+    <Description>Larch is a simple structured logging framework for .net based on .net standard</Description>
+    <PackageProjectUrl>https://github.com/amits1995/larch</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/amits1995/larch</RepositoryUrl>
+    <NeutralLanguage></NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>

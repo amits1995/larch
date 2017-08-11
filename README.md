@@ -9,3 +9,5 @@ inspired by https://github.com/sirupsen/logrus
 4. more hooks 
 5. json formatter
 6. destructing objects to dictionaries (like serilog)
+7. versioning
+8. upload nuget
