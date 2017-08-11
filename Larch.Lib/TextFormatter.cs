@@ -70,7 +70,7 @@ namespace Larch.Lib
                 return true;
             }
 
-            foreach (var c in text)
+            foreach (var c in text) // todo: shouldn't this be more efficient?
             {
                 if (!((c >= 'a' && c <= 'z') ||
             (c >= 'A' && c <= 'Z') ||

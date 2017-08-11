@@ -13,12 +13,15 @@ namespace Examples
 
         private static void Example1()
         {
-            var logger = new Logger();
-            logger.WithFields(new Fields
+            var logger = Logger.DefaultLogger();
+
+            var e = logger.WithFields(new Fields
             {
-               {"name", "Amit"},
-                {"age", 22 }
-            }).Debug("Started writing Larch");
+                {"name", "Amit"},
+                {"age", 22}
+            });
+            e.Debug("Started writing Larch");
+            e.Info("reusing the same entry");
         }
 
 

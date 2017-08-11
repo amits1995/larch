@@ -43,13 +43,7 @@ namespace Larch.Lib
             Level = level;
             Timestamp = DateTime.Now;
 
-            // TODO: hooks logic here
-            // TODO: try catches
-            // TODO: thread safety
-            var formatted = Logger.Formatter.Format(this);
-            Logger.WriteToOutput(formatted);
-
-
+            Logger.Hooks.Fire(this);
         }
 
         public void Debug(params object[] objects) => Log(Level.DebugLevel, objects.ToFormattedString());

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
@@ -9,94 +10,56 @@ namespace Larch.Lib
 {
     public class Larch
     {
-        public ConcurrentBag<IHook> Hooks { get; set; }
+        public LevelHooks Hooks { get; set; }
 
-        private IOutputAdapter _out = new ConsoleOutputAdapter();
-        private Encoding _encoding = Encoding.UTF8;
+        public Encoding Encoding { get; set; }
 
-        public Encoding Encoding
+        public IFormatter Formatter { get; set; }
+
+        public static Larch DefaultLogger()
         {
-            get
-            {
-                _encodingLock.EnterReadLock();
-                var e = _encoding;
-                _encodingLock.ExitReadLock();
-                return e;
-            }
-            set
-            {
-                _encodingLock.EnterWriteLock();
-                _encoding = value;
-                _encodingLock.ExitWriteLock();
-            }
+            var logger = new Larch();
+            logger.Hooks.Add(new ConsoleOutputAdapter(LevelExtensions.GetLevels(Level.DebugLevel)));
+            return logger;
         }
 
-
-
-        private IFormatter _formatter = new TextFormatter();
-
-        public void SetOutputAdapter(IOutputAdapter outputAdapter)
+        public Larch()
         {
-            lock (_outputLock)
-            {
-                _out = outputAdapter;
-            }
+            Encoding = Encoding.UTF8;
+            Hooks = new LevelHooks();
+            Formatter = new TextFormatter();
         }
-
-        public void WriteToOutput(string log)
-        {
-            lock (_outputLock)
-            {
-                _out.Write(log);
-            }
-        }
-
-        public IFormatter Formatter
-        {
-            get
-            {
-                _formatterLock.EnterReadLock();
-                var f = _formatter;
-                _formatterLock.ExitReadLock();
-                return f;
-            }
-            set
-            {
-                _formatterLock.EnterWriteLock();
-                _formatter = value;
-                _formatterLock.ExitWriteLock();
-            }
-        }
-
-        private readonly ReaderWriterLockSlim _formatterLock = new ReaderWriterLockSlim();
-        private volatile object _outputLock = new object();
-        private readonly ReaderWriterLockSlim _encodingLock = new ReaderWriterLockSlim();
 
         private Entry NewEntry()
         {
-            var entry = new Entry(this);
-            return entry;
+            // TODO: maybe use caching like in logrus in the future
+            return new Entry(this);
         }
 
-        public Entry WithField(string key, object value)
-        {
-            return new Entry(this).WithField(key, value);
-        }
-
-        public Entry WithFields(Fields fields)
+        private Entry NewEntry(Fields fields)
         {
             return new Entry(this, fields);
         }
 
-        public Entry WithException(Exception ex)
+        public Entry WithField(string key, object value)
         {
-            return new Entry(this).WithException(ex);
+            return NewEntry().WithField(key, value);
         }
 
-        public void Debug(params object[] objects) => new Entry(this).Debug(objects);
-        public void Info(params object[] objects) => new Entry(this).Info(objects);
-        public void Warn(params object[] objects) => new Entry(this).Warn(objects);
-        public void Error(params object[] objects) => new Entry(this).Error(objects);
-        public void Fatal(params object[] objects) => new Entry(this).Fatal(objects);
+        public Entry WithFields(Fields fields)
+        {
+            return NewEntry(fields);
+        }
+
+        public Entry WithException(Exception ex)
+        {
+            return NewEntry().WithException(ex);
+        }
+
+        public void Debug(params object[] objects) => NewEntry().Debug(objects);
+        public void Info(params object[] objects) => NewEntry().Info(objects);
+        public void Warn(params object[] objects) => NewEntry().Warn(objects);
+        public void Error(params object[] objects) => NewEntry().Error(objects);
+        public void Fatal(params object[] objects) => NewEntry().Fatal(objects);
     }
 }
