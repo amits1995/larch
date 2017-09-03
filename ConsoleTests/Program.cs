@@ -1,6 +1,7 @@
 ﻿using System;
 using Larch.Lib;
-using Logger = Larch.Lib.Larch;
+using Larch.Lib.Hooks;
+using Microsoft.Extensions.Logging;
 
 namespace Examples
 {
@@ -14,16 +15,14 @@ namespace Examples
         private static void Example1()
         {
             var logger = Logger.DefaultLogger();
-
+            logger.Hooks.Add(new DebugHook());
             var e = logger.WithFields(new Fields
             {
                 {"name", "Amit"},
                 {"age", 22}
             });
-            e.Debug("Started writing Larch");
+            e.Debug("Started writing Logger");
             e.Info("reusing the same entry");
         }
-
-
     }
 }

@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Larch.Lib.Contracts;
 
-namespace Larch.Lib
+namespace Larch.Lib.Hooks
 {
-    public class ConsoleOutputAdapter : IHook
+    public class ConsoleHook : IHook
     {
         private readonly Level[] _levels;
         private volatile object _lock = new object();
 
-        public ConsoleOutputAdapter(Level[] levels)
+        public ConsoleHook(Level[] levels)
         {
             _levels = levels;
         }

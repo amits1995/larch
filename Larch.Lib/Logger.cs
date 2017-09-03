@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using Larch.Lib.Hooks;
 
 namespace Larch.Lib
 {
-    public class Larch
+    public class Logger
     {
         public LevelHooks Hooks { get; set; }
 
@@ -16,14 +17,14 @@ namespace Larch.Lib
 
         public IFormatter Formatter { get; set; }
 
-        public static Larch DefaultLogger()
+        public static Logger DefaultLogger()
         {
-            var logger = new Larch();
-            logger.Hooks.Add(new ConsoleOutputAdapter(LevelExtensions.GetLevels(Level.DebugLevel)));
+            var logger = new Logger();
+            logger.Hooks.Add(new ConsoleHook(LevelExtensions.GetLevels(Level.DebugLevel)));
             return logger;
         }
 
-        public Larch()
+        public Logger()
         {
             Encoding = Encoding.UTF8;
             Hooks = new LevelHooks();

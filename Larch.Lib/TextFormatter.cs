@@ -40,7 +40,7 @@ namespace Larch.Lib
             {
                 AppendKeyValue(sBuilder, key, entry.Data[key]);
             }
-            sBuilder.AppendLine();
+            
             return sBuilder.ToString();
         }
 

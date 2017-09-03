@@ -9,6 +9,7 @@
     <PackageProjectUrl>https://github.com/amits1995/larch</PackageProjectUrl>
     <RepositoryUrl>https://github.com/amits1995/larch</RepositoryUrl>
     <NeutralLanguage></NeutralLanguage>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

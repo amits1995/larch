@@ -7,7 +7,7 @@ namespace Larch.Lib
 {
     public class Entry
     {
-        public Larch Logger { get; set; }
+        public Logger Logger { get; set; }
 
         public Fields Data { get; set; }
 
@@ -17,11 +17,11 @@ namespace Larch.Lib
 
         public Level Level { get; set; }
 
-        public Entry(Larch logger) : this(logger, new Fields())
+        public Entry(Logger logger) : this(logger, new Fields())
         {
         }
 
-        public Entry(Larch logger, Fields data)
+        public Entry(Logger logger, Fields data)
         {
             Logger = logger;
             Data = data;
