@@ -7,6 +7,8 @@ namespace Examples
 {
     class Program
     {
+        [Larch.Attributes.LarchProperty("proop")]
+        public int MyProperty { get; set; }
         static void Main(string[] args)
         {
             Example1();
