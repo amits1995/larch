@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Larch.Lib.Contracts
+namespace Larch.Contracts
 {
     public interface IFormatter
     {

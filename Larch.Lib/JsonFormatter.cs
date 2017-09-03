@@ -1,10 +1,9 @@
-﻿using Larch.Lib.Contracts;
+﻿using Larch.Contracts;
 using System;
 using System.IO;
-using Larch.Lib;
 using Newtonsoft.Json;
 
-namespace JsonFormatter
+namespace Larch
 {
     public class JsonFormatter : IFormatter
     {

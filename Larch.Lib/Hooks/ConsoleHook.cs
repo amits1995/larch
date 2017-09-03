@@ -1,7 +1,7 @@
 ﻿using System;
-using Larch.Lib.Contracts;
+using Larch.Contracts;
 
-namespace Larch.Lib.Hooks
+namespace Larch.Hooks
 {
     public class ConsoleHook : IHook
     {

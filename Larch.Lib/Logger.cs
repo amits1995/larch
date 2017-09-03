@@ -1,13 +1,13 @@
-﻿using Larch.Lib.Contracts;
+﻿using Larch.Contracts;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
-using Larch.Lib.Hooks;
+using Larch.Hooks;
 
-namespace Larch.Lib
+namespace Larch
 {
     public class Logger
     {

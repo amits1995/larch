@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Larch.Lib\Larch.Lib.csproj" />
+    <ProjectReference Include="..\Larch.Lib\Larch.csproj" />
   </ItemGroup>
 
 </Project>

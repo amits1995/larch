@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 
-namespace Larch.Lib
+namespace Larch
 {
     
     public static class Extensions

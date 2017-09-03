@@ -1,6 +1,6 @@
 ﻿using System;
-using Larch.Lib;
-using Larch.Lib.Hooks;
+using Larch;
+using Larch.Hooks;
 using Microsoft.Extensions.Logging;
 
 namespace Examples

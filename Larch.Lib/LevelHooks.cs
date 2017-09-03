@@ -2,9 +2,9 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
-using Larch.Lib.Contracts;
+using Larch.Contracts;
 
-namespace Larch.Lib
+namespace Larch
 {
     public class LevelHooks
     {
