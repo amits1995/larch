@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
+using Larch.Lib.Attributes;
 
-namespace Larch
+namespace Larch.Lib
 {
-    
+
     public static class Extensions
     {
         public static string ToFormattedString(this object[] objects)
@@ -19,20 +22,27 @@ namespace Larch
             return stringBuilder.ToString();
         }
 
+        public static string Render(this object obj)
+        {
+            switch (obj)
+            {
+                case byte[] buf:
+                    return Convert.ToBase64String(buf);
+                default:
+                    return obj.ToString();
+            }
+        }
+
         public static Fields Destruct(this object obj)
         {
             var fields = new Fields();
             foreach (var prop in obj.GetType().GetRuntimeProperties())
             {
-                if (prop.GetCustomAttribute<Attributes.LarchIgnore>() != null) continue;
-                var lProp = prop.GetCustomAttribute<Attributes.LarchProperty>();
-                fields[lProp != null ? lProp.PropertyKey : prop.Name] = prop.GetValue(obj);
+                if (prop.GetCustomAttribute<LarchIgnore>() != null) continue;
+                var customRenderer = prop.GetCustomAttribute<LarchRender>();
+                fields.Add(prop.Name, customRenderer == null ? prop.GetValue(obj) : customRenderer.Renderer.DoRender(obj));
             }
             return fields;
         }
-
-
-
-        
     }
 }

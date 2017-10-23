@@ -7,15 +7,16 @@
     <Product>Larch</Product>
     <Description>Larch is a simple structured logging framework for .net based on .net standard</Description>
     <PackageProjectUrl>https://github.com/amits1995/larch</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/amits1995/larch</RepositoryUrl>
+    <RepositoryUrl>http://gitlab/791Mador/larch</RepositoryUrl>
     <NeutralLanguage></NeutralLanguage>
-    <Version>0.0.1</Version>
+    <Version>0.0.9</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
     <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
   </ItemGroup>
 
 </Project>

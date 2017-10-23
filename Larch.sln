@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Larch", "Larch.Lib\Larch.csproj", "{8F97A090-DD5D-4AE3-90AC-B62B731E53C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Larch.Lib", "Larch.Lib\Larch.Lib.csproj", "{8F97A090-DD5D-4AE3-90AC-B62B731E53C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples", "ConsoleTests\Examples.csproj", "{100249C8-5577-4C3A-A394-543A5C1E3EA5}"
 EndProject
@@ -24,8 +24,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FC5A9736-A51B-44E2-A9FE-307B558ABAE5}
 	EndGlobalSection
 EndGlobal

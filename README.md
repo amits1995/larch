@@ -11,4 +11,3 @@ inspired by https://github.com/sirupsen/logrus
 6. destructing objects to dictionaries (like serilog)
 7. versioning
 8. upload nuget
-9. support ILoggerProvider from Microsoft.Extensions.Logging

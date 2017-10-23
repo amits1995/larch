@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Larch
+namespace Larch.Lib
 {
     public class Fields : Dictionary<string, object>
     {

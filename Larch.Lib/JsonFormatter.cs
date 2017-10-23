@@ -1,44 +1,20 @@
-﻿using Larch.Contracts;
-using System;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Larch.Lib.Contracts;
 using Newtonsoft.Json;
 
-namespace Larch
+namespace Larch.Lib
 {
     public class JsonFormatter : IFormatter
     {
-        public string TimestampFormat { get; set; }
-        public string DefaultDatetimeFormat { get; set; } = "o"; // ISO 8601
-        private readonly JsonSerializer _serializer;
-
-        public JsonFormatter() : this(new JsonSerializer())
-        {
-
-        }
-        public JsonFormatter(JsonSerializer serializer)
-        {
-            _serializer = serializer;
-        }
-
         public string Format(Entry entry)
         {
-            var fields = new Fields(entry.Data)
-            {
-                {
-                    "time",
-                    entry.Timestamp.ToString(
-                        string.IsNullOrEmpty(TimestampFormat) ? DefaultDatetimeFormat : TimestampFormat)
-                },
-                {"level", entry.Level.ToStr()},
-                {"msg", entry.Message}
-            };
-            string json;
-            using (var writer = new StringWriter())
-            {
-                _serializer.Serialize(writer, fields);
-                json = writer.ToString();
-            }
-            return json;
+            var dic = new Fields(entry.Data);
+            dic["msg"] = entry.Message;
+            dic["time"] = entry.Timestamp.ToString("O");
+            dic["level"] = entry.Level.ToStr();
+            return JsonConvert.SerializeObject(dic);
         }
     }
 }

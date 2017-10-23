@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Larch
+namespace Larch.Lib
 {
     public class Entry
     {
@@ -41,7 +41,7 @@ namespace Larch
         {
             Message = msg;
             Level = level;
-            Timestamp = DateTime.Now;
+            Timestamp = DateTime.UtcNow;
 
             Logger.Hooks.Fire(this);
         }

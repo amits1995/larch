@@ -1,13 +1,12 @@
-﻿using Larch.Contracts;
+﻿using Larch.Lib.Contracts;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
-using Larch.Hooks;
 
-namespace Larch
+namespace Larch.Lib
 {
     public class Logger
     {
@@ -20,7 +19,7 @@ namespace Larch
         public static Logger DefaultLogger()
         {
             var logger = new Logger();
-            logger.Hooks.Add(new ConsoleHook(LevelExtensions.GetLevels(Level.DebugLevel)));
+            logger.Hooks.Add(new ConsoleOutputAdapter(LevelExtensions.GetLevels(Level.DebugLevel)));
             return logger;
         }
 

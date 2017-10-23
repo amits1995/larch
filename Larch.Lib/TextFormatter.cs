@@ -1,18 +1,21 @@
-﻿using Larch.Contracts;
+﻿using Larch.Lib.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace Larch
+namespace Larch.Lib
 {
     public class TextFormatter : IFormatter
     {
         private const string DefautDatetimeFormat = "o"; // ISO 8601
+        private const int MessagePad = 40;
         public bool DisableSorting { get; set; }
         public bool QuoteEmptyStrings { get; set; }
         public bool DisableTimestamp { get; set; }
         public string TimestampFormat { get; set; }
+        public bool FullTimestamp { get; set; }
+        public DateTime BaseDateTime { get; set; } = DateTime.UtcNow;
 
         public string Format(Entry entry)
         {
@@ -27,20 +30,31 @@ namespace Larch
                 keys = new SortedSet<string>(entry.Data.Keys.ToList());
             }
 
-            if (!DisableTimestamp)
+            if (DisableTimestamp)
             {
-                AppendKeyValue(sBuilder, "time", entry.Timestamp.ToString(string.IsNullOrEmpty(TimestampFormat) ? DefautDatetimeFormat : TimestampFormat));
+                sBuilder.Append($"{entry.Level.ToStr().Substring(0, 4).ToUpper()} {entry.Message.PadRight(MessagePad)} ");
             }
-            AppendKeyValue(sBuilder, "level", entry.Level.ToStr());
-            if (!string.IsNullOrEmpty(entry.Message))
+            else if (!FullTimestamp)
             {
-                AppendKeyValue(sBuilder, "msg", entry.Message);
+                var secondsPassed = (int)entry.Timestamp.Subtract(BaseDateTime).TotalSeconds;
+                sBuilder.Append($"{entry.Level.ToStr().Substring(0, 4).ToUpper()}[{secondsPassed:D4}] {entry.Message.PadRight(MessagePad)} ");
             }
+            else
+            {
+                sBuilder.Append($"{entry.Level.ToStr().Substring(0, 4).ToUpper()}[{entry.Timestamp.ToString(string.IsNullOrEmpty(TimestampFormat) ? DefautDatetimeFormat : TimestampFormat)}] {entry.Message.PadRight(MessagePad)} ");
+            }
+
+            //AppendKeyValue(sBuilder, "level", entry.Level.ToStr());
+            //if (!DisableTimestamp)
+            //{
+            //    AppendKeyValue(sBuilder, "time", entry.Timestamp.ToString(string.IsNullOrEmpty(TimestampFormat) ? DefautDatetimeFormat : TimestampFormat));
+            //}
+
             foreach (var key in keys)
             {
                 AppendKeyValue(sBuilder, key, entry.Data[key]);
             }
-            
+            //sBuilder.AppendLine();
             return sBuilder.ToString();
         }
 
@@ -56,7 +70,7 @@ namespace Larch
 
         private void AppendValue(StringBuilder sBuilder, object value)
         {
-            var str = value.ToString();
+            var str = value.Render();
             if (NeedsQouting(str))
                 sBuilder.Append($"\"{str}\"");
             else
