@@ -7,9 +7,9 @@
     <Product>Larch</Product>
     <Description>Larch is a simple structured logging framework for .net based on .net standard</Description>
     <PackageProjectUrl>https://github.com/amits1995/larch</PackageProjectUrl>
-    <RepositoryUrl>http://gitlab/791Mador/larch</RepositoryUrl>
+    <RepositoryUrl>https://github.com/amits1995/larch</RepositoryUrl>
     <NeutralLanguage></NeutralLanguage>
-    <Version>0.0.9</Version>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

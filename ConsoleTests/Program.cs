@@ -11,14 +11,11 @@ namespace Examples
         static void Main(string[] args)
         {
             Example1();
-
         }
 
         private static void Example1()
         {
             var logger = Logger.DefaultLogger();
-            //logger.Hooks.Add(new RollingFileOutputAdapter(LevelExtensions.AllLevels(), ".\\logs\\hedwig.log", 1024, 4));
-            logger.Formatter = new JsonFormatter();
 
             var e = logger.WithFields(new Fields
             {
@@ -35,7 +32,5 @@ namespace Examples
             e.Error("something went wrong while handlnig file");
             e.Info("reusing the same entry");
         }
-
-
     }
 }
